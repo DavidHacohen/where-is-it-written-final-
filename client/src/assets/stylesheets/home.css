@@ -1,0 +1,30 @@
+
+.textContainer{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(245, 253, 253);
+    font-size: 25px;
+    text-align: center;
+    align-items: center;
+}
+
+.backgroundContainer{
+    background-image: url('../images/pexels-tim-mossholder-974314\ \(1\).jpg');
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+    position: relative;
+}
+
+.mainAdding{
+    font-size: 33px;
+    margin-bottom: 10px;
+
+}
+
+.subAdding{
+    font-size: 24px;
+    
+}

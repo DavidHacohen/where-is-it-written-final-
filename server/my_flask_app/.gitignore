@@ -1,0 +1,21 @@
+# Python
+*.pyc
+__pycache__/
+
+# Virtual Environment
+venv/
+env/
+ENV/
+my_env
+
+# Flask
+instance/
+
+# Logs
+*.log
+
+# IDE
+.idea/
+
+# Miscellaneous
+.DS_Store
