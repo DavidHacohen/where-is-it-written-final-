@@ -1,151 +1,162 @@
-import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useRef, useState, useEffect } from "react";
+import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from 'react';
+import "../assets/stylesheets/SignUp.css"
 
-const registerUser = async (
-  userData,
-  handleRegistrationSuccess,
-  setErrorMessage
-) => {
-  try {
-    const response = await fetch("http://localhost:5000/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userData),
-    });
+const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
+const PWD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
 
-    const data = await response.json();
 
-    if (response.ok) {
-      // Registration successful, proceed to login
-      loginUser(userData, handleRegistrationSuccess, setErrorMessage);
-    } else {
-      setErrorMessage(data.message);
-    }
-  } catch (error) {
-    console.error("Error registering user:", error);
-  }
-};
-
-const loginUser = async (userData, handleLoginSuccess, setErrorMessage) => {
-  try {
-    const response = await fetch("http://localhost:5000/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userData),
-    });
-
-    const data = await response.json();
-
-    if ("access_token" in data) {
-      // Save the token in a secure way (e.g., HTTP-only cookie)
-      document.cookie = `access_token=${data.access_token}; path=/`;
-
-      // Handle successful login
-      handleLoginSuccess();
-      console.log("new if");
-
-    } else  {
-      setErrorMessage(data.message);
-      console.log("new els");
-    }
-  } catch (error) {
-    console.error("Error logging in:", error);
-  }
-};
 
 const SignUp = () => {
-  const navigate = useNavigate();
+  const userRef = useRef();
+  const errRef = useRef();
 
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-  });
+  const [user, setUser] = useState('');
+  const [validName, setValidName] = useState(false);
+  const [userFocus, setUserFocus] = useState(false);
 
-  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  };
+  const [pwd, setPwd] = useState('');
+  const [validPwd, setValidPwd] = useState(false);
+  const [pwdFocus, setPwdFocus] = useState(false);
+  const [matchPwd, setMatchPwd] = useState('');
+  const [validMatch, setValidMatch] = useState(false);
+  const [matchFocus, setMatchFocus] = useState(false);
+  const [errMsg, setErrMsg] = useState('');
+  const [success, setSuccess] = useState(false);
 
-  const handleRegistrationSuccess = () => {
-    alert("Registration and login successful!");
-    navigate("/login");
-  };
+  useEffect(() => {
+    userRef.current.focus();
+  }, [])
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    registerUser(formData, handleRegistrationSuccess, setErrorMessage);
-  };
+  useEffect(() => {
+    const result = USER_REGEX.test(user);
+    console.log(result);
+    console.log(user);
+    setValidName(result);
+    }, [user]) 
+
+  
+  useEffect(() => {
+      const result = PWD_REGEX.test(pwd);
+      console.log(result);
+      console.log(pwd);
+      setValidPwd (result);
+      const match = pwd === matchPwd;
+      setValidMatch(match);
+      }, [pwd, matchPwd])
+  
+useEffect(() => {
+  setErrMsg('');
+}, [user, pwd, matchPwd])
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+    // // if button enabled with JS hack
+    // const v1 = USER_REGEX.test(user);
+    // const v2 = PWD_REGEX.test(pwd);
+    // if (!v1 || !v2) {
+    //     setErrMsg("Invalid Entry");
+    //     return;
+}
 
   return (
-    <div>
-        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-      <h2>Registration Form</h2>
-      <form
-        action="/action_page.php"
-        method="get"
-        autoComplete="on"
-        onSubmit={handleSubmit}
-      >
-        <label>
-          Your first name:
-          <input
-            id="FirstName"
-            type="text"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <br />
-        <label>
-          Your last name:
-          <input
-            id="LastName"
-            type="text"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <br />
-        Your email:
-        <label>
-          <input
-            id="email"
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <br />
-        Enter a new password:
-        <label>
-          <input
-            id="password"
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <br />
-        <button type="submit">Register</button>
-      </form>
-    </div>
-  );
-};
+    <>
+    <section>
+     <p ref={errRef} className={errMsg ? "errmsg":
+      "offscreen"} aria-live="assertive">{errMsg}</p> 
+      <h1>הירשם</h1>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="שם משתמש">
+        שם משתמש:
+          <span className={validName? "valid":"hide"}>
+          <FontAwesomeIcon icon={faCheck} />
+          </span>
+          <span className={validName || !user ? "hide":
+          "invalid"}>
+          <FontAwesomeIcon icon={faTimes} />
+          </span>
 
-export default SignUp;
+        </label>
+        <input
+        type="text"
+        id="username"
+        ref={userRef}
+        autocomplete="off"
+        onChange={(e) => setUser(e.target.value)}
+        required
+        aria-invalid={validName? "false" : "true"}
+        aria-describedby="uidnote"
+        onFocus={() => setUserFocus(true)}
+        onBlur={() => setUserFocus (false)}
+        />
+        <p id="uidnote" className={userFocus && user &&
+          !validName ? "instructions": "offscreen"}>
+          <FontAwesomeIcon icon={faInfoCircle} />
+          4 to 24 characters.<br />
+          Must begin with a letter.<br />
+          Letters, numbers, underscores, hyphens allowed.
+          </p>
+          <label htmlFor="password">
+                          סיסמה:
+                            <FontAwesomeIcon icon={faCheck} className={validPwd ? "valid" : "hide"} />
+                            <FontAwesomeIcon icon={faTimes} className={validPwd || !pwd ? "hide" : "invalid"} />
+                        </label>
+                        <input
+                            type="password"
+                            id="password"
+                            onChange={(e) => setPwd(e.target.value)}
+                            value={pwd}
+                            required
+                            aria-invalid={validPwd ? "false" : "true"}
+                            aria-describedby="pwdnote"
+                            onFocus={() => setPwdFocus(true)}
+                            onBlur={() => setPwdFocus(false)}
+                        />
+                        <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
+                            <FontAwesomeIcon icon={faInfoCircle} />
+                            8 to 24 characters.<br />
+                            Must include a number and a special character.<br />
+                            Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
+                        </p>
+
+
+                        <label htmlFor="confirm_pwd">
+                            אשר סיסמה:
+                            <FontAwesomeIcon icon={faCheck} className={validMatch && matchPwd ? "valid" : "hide"} />
+                            <FontAwesomeIcon icon={faTimes} className={validMatch || !matchPwd ? "hide" : "invalid"} />
+                        </label>
+                        <input
+                            type="password"
+                            id="confirm_pwd"
+                            onChange={(e) => setMatchPwd(e.target.value)}
+                            value={matchPwd}
+                            required
+                            aria-invalid={validMatch ? "false" : "true"}
+                            aria-describedby="confirmnote"
+                            onFocus={() => setMatchFocus(true)}
+                            onBlur={() => setMatchFocus(false)}
+                        />
+                        <p id="confirmnote" className={matchFocus && !validMatch ? "instructions" : "offscreen"}>
+                            <FontAwesomeIcon icon={faInfoCircle} />
+                            Must match the first password input field.
+                        </p>
+
+                        <button disabled={!validName || !validPwd || !validMatch ? true : false}>הירשם</button>
+                    </form>
+                    <p>
+                        כבר רשום?<br />
+                        <span className="line">
+                            {/*put router link here*/}
+                            <a href="#">התחבר</a>
+                        </span>
+                    </p>
+                </section>
+            )
+        </>
+    )
+}
+export default SignUp

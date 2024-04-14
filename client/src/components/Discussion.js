@@ -99,7 +99,9 @@ const Discussion = ({ podcastTitle }) => {
 
 
  return (
+  <>
     <div>
+      <Nav/>
       <h4>Discussions for "{podcastTitle}"</h4>
       <div>
         <input
@@ -187,6 +189,7 @@ const Discussion = ({ podcastTitle }) => {
         ))}
       </ul>
     </div>
+    </>
   );
 };
 

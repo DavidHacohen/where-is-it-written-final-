@@ -1,9 +1,12 @@
 // Podcasts.js
 import React from "react";
 import Discussion from "./Discussion"; // Import the Discussion component
+import Nav from "./Nav";
 
 const Podcasts = () => {
   return (
+    <>
+    <Nav/ >
     <div>
       <h2>Podcasts</h2>
       {/* Podcast 1 */}
@@ -38,6 +41,7 @@ const Podcasts = () => {
         <Discussion podcastTitle="למה נשים נשואות מכסות את ראשן" />
       </div>
     </div>
+    </>
   );
 };
 

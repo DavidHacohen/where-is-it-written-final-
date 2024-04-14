@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Nav from './Nav';
 
 const UserProfile = () => {
   const [userAccessToken, setUserAccessToken] = useState(null);
@@ -45,10 +46,13 @@ const UserProfile = () => {
   };
 
   return (
+    <>
+    <Nav/>
     <div>
       <h2>User Profile</h2>
       {/* Your UI rendering code here */}
     </div>
+    </>
   );
 };
 

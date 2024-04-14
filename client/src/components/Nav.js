@@ -14,7 +14,11 @@ const Nav = () =>{
       </div>
         <ul className="nav_links">
         <li>
-          <Link to="/home">Home</Link>
+          <Link to="/homePage">Home</Link>
+          <ul className="dropdown">
+              <li><a href="/aboutUs">מי אנחנו</a></li>
+              <li><a href="/contactUs">צור קשר</a></li>
+          </ul>
         </li>
         <li>
           <Link to="/podcasts">Podcasts</Link>
@@ -35,7 +39,7 @@ const Nav = () =>{
           <Link to="/login">Login</Link>
         </li>
         <li>
-          <Link to="/signup">Sign up</Link>
+          <Link to="/signup">SignUp</Link>
         </li>
         </ul>
     </nav>

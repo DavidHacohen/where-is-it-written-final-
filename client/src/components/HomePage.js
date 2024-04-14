@@ -9,15 +9,14 @@ import Slideshow from "./Slideshow";
 
 
 
-function Home(props) {
+function HomePage(props) {
   const images = [
     img, img3 
   ]
+  
   return (
     <>
-      <div>
-        <Nav />
-      </div>
+     <Nav/ >
       <div className="backgroundContainer">
         <div className="textContainer">
           <h1 className="mainAdding">איפה זה כתוב - מושגים ביהדות</h1>
@@ -29,8 +28,6 @@ function Home(props) {
       </div>
     </>
   );
-  console.log("login")
+};
 
-}
-
-export default Home;
+export default HomePage;

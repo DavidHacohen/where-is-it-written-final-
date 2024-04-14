@@ -1,16 +1,16 @@
 import React from "react";
 import Nav from "./Nav";
 
-const Articles = () => {
+const Contact = () => {
     return(
         <>
         <Nav/>
         <div>
-            <h2>מאמרים</h2>
+            <h2>צור קשר</h2>
             {/* הוספת רצועות */}
         </div>
         </>
     )
 }
 
-export default Articles;
+export default Contact;

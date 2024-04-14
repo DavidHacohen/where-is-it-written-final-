@@ -29,3 +29,22 @@
     font-size: 24px;
     font-weight: bold;
 }
+
+.nav_links li{
+    margin: 0 10px;
+    position: relative;
+    
+}
+
+.dropdown{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #333;
+    display: none;
+    z-index: 1;
+}
+
+.nav_links li:hover .dropdown{
+    display: block;
+}
