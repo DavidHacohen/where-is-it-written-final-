@@ -7,39 +7,37 @@ const Nav = () =>{
   return (
     <>
     <nav className="navbar">
-      <div className="logo">
+      {/* <div className="logo"> */}
       {/* <img className="Logo"
       // src={img}>
       </img> */}
-      </div>
+      {/* </div> */}
         <ul className="nav_links">
-        <li>
-          <Link to="/homePage">Home</Link>
+        <li className="li">
+          <Link to="/homePage">בית</Link>
           <ul className="dropdown">
               <li><a href="/aboutUs">מי אנחנו</a></li>
               <li><a href="/contactUs">צור קשר</a></li>
           </ul>
         </li>
-        <li>
-          <Link to="/podcasts">Podcasts</Link>
+        <li className="li">
+          <Link to="/podcasts">פודקאסטים</Link>
         </li>
-        <li>
-          <Link to="/videos">Videos</Link>
+        <li className="li">
+          <Link to="/videos">סרטונים</Link>
         </li>
-        <li>
-          <Link to="/articles">Articles</Link>
+        <li className="li">
+          <Link to="/articles">מאמרים</Link>
         </li>
-        <li>
-          <Link to="/discussion">Discussions</Link>
-        </li>
-        <li>
-          <Link to="/userProfile">UserProfile</Link>
-        </li>
-        <li>
-          <Link to="/login">Login</Link>
-        </li>
-        <li>
-          <Link to="/signup">SignUp</Link>
+        <li className="li">
+          <Link to="/discussions">דיונים</Link>
+        </li>     
+        <li className="li">
+          <Link to="/userProfile">פרופיל משתמש</Link>
+          <ul className="dropdown">
+              <li><a href="/signup">הירשם</a></li>
+              <li><a href="/contactUs">התחבר</a></li>
+          </ul>
         </li>
         </ul>
     </nav>

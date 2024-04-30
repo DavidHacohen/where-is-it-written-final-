@@ -14,7 +14,7 @@ import NoPage from "./components/NoPage";
 import UserProfile from "./components/UserProfile";
 import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
-import Discussion from "./components/Discussion";
+import Discussions from "./components/Discussions";
 import About from "./components/About"
 import Contact from "./components/Contact"
 import { UserProvider } from "./components/UserContext";
@@ -32,7 +32,7 @@ const App = () => {
           <Route path="/podcasts" element={<Podcasts />} />
           <Route path="/articles" element={<Articles />} />
           <Route path="/videos" element={<Videos />} />
-          <Route path="/discussion" element={<Discussion />} />
+          <Route path="/discussions" element={<Discussions />} />
           <Route path="/userProfile" element={<UserProfile />} />
           <Route path="/aboutUs" element={<About />} />
           <Route path="/contactUs" element={<Contact />} />

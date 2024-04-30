@@ -1,0 +1,32 @@
+.container {
+  text-align: center;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.slide-down {
+  width: 100%;
+  overflow: hidden;
+}
+
+.slide-down p {
+  animation: 20s slide-down;
+  margin-top: 0%;
+}
+
+@keyframes slide-down {
+    from {
+        margin-top: 40%;
+        height: 300%; 
+      }
+    
+      to {
+        margin-top: 0%;
+        height: 100%;
+      }
+    
+}
+.p{
+    font-size: 22.5px;
+}

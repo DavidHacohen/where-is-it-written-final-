@@ -4,9 +4,11 @@ import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icon
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from 'react';
 import "../assets/stylesheets/SignUp.css"
+import axios from "../api/axios";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
+const REGISTER_URL = 'http://localhost:5000/SignUp';
 
 
 
@@ -55,21 +57,58 @@ useEffect(() => {
 
 const handleSubmit = async (e) => {
   e.preventDefault();
-    // // if button enabled with JS hack
-    // const v1 = USER_REGEX.test(user);
-    // const v2 = PWD_REGEX.test(pwd);
-    // if (!v1 || !v2) {
-    //     setErrMsg("Invalid Entry");
-    //     return;
+    // if button enabled with JS hack
+    const formData = new FormData();
+    const v1 = USER_REGEX.test(user);
+    const v2 = PWD_REGEX.test(pwd);
+    console.log("handleSubmit")
+    if (!v1 || !v2) {
+        setErrMsg("Invalid Entry");
+        console.log("handleSubmit if")
+        return;
+    }
+    try {
+      const response = await fetch(REGISTER_URL, formData, {
+        method: "POST",
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      console.log(response?.data);
+      console.log(response?.accessToken);
+      console.log(JSON.stringify(response))
+      setSuccess(true);
+      //clear state and controlled inputs
+      //need value attrib on inputs for this
+      setUser('');
+      setPwd('');
+      setMatchPwd('');
+  } catch (err) {
+      if (!err?.response) {
+          setErrMsg('אין תגובה מהשרת');
+      } else if (err.response?.status === 409) {
+          setErrMsg('שם משתמש תפוס');
+      } else {
+          setErrMsg('רישום נכשל')
+      }
+      errRef.current.focus();
+  }
+
 }
 
   return (
     <>
+     {success ? (
+                <section>
+                    <h1>Success!</h1>
+                    <p>
+                        <a href="#">הירשם</a>
+                    </p>
+                </section>
+            ) : (
     <section>
      <p ref={errRef} className={errMsg ? "errmsg":
       "offscreen"} aria-live="assertive">{errMsg}</p> 
       <h1>הירשם</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} method="POST">
         <label htmlFor="שם משתמש">
         שם משתמש:
           <span className={validName? "valid":"hide"}>
@@ -145,7 +184,7 @@ const handleSubmit = async (e) => {
                             Must match the first password input field.
                         </p>
 
-                        <button disabled={!validName || !validPwd || !validMatch ? true : false}>הירשם</button>
+                        <button disabled={!validName || !validPwd || !validMatch ? true : false}>הירשם</button >
                     </form>
                     <p>
                         כבר רשום?<br />
@@ -155,7 +194,7 @@ const handleSubmit = async (e) => {
                         </span>
                     </p>
                 </section>
-            )
+            )}
         </>
     )
 }

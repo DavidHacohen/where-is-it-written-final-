@@ -1,6 +1,6 @@
 // Podcasts.js
 import React from "react";
-import Discussion from "./Discussion"; // Import the Discussion component
+import Discussion from "./Discussions"; // Import the Discussion component
 import Nav from "./Nav";
 
 const Podcasts = () => {

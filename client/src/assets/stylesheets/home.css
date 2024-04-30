@@ -1,17 +1,32 @@
 
+/* body {
+    min-height: 100vh;
+    background-color: rgb(249, 252, 255);
+    display: flex;
+    direction: rtl;
+    justify-content: right;
+    height:100vh;
+    padding:0px;
+    margin:0px;
+    overflow:hidden;
+    font-family:'Nanum Gothic', sans-serif;
+    perspective:700px;
+    background:#f1f0f0; 
+} */
+
 .textContainer{
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: rgb(245, 253, 253);
+    /* color: rgb(100, 211, 211); */
     font-size: 25px;
     text-align: center;
     align-items: center;
 }
 
 .backgroundContainer{
-    background-image: url('../images/pexels-tim-mossholder-974314\ \(1\).jpg');
+    background-image: url('../images/tefillin-1297846.jpg');
     background-size: cover;
     background-position: center;
     height: 300px;
@@ -19,14 +34,28 @@
 }
 
 .mainAdding{
-    font-size: 33px;
+    font-size: 70px;
     margin-bottom: 10px;
+    color: rgb(239, 242, 244);
 
 }
 
 .subAdding{
-    font-size: 24px;
-    
+    font-size: 45px;
+    color: #c4c489;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap; /* Prevent text from wrapping */
+    animation: slide-left 50s linear infinite; /* Set animation to loop infinitely */
+  }
+  
+  @keyframes slide-left {
+    0% {
+      transform: translateX(-100%); /* Start from the right side */
+    }
+    100% {
+      transform: translateX(100%); /* Move to the left side */
+    }
 }
 
 

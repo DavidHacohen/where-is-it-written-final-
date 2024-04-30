@@ -1,50 +1,73 @@
-.navbar{
+.navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
     background-color: #2b2121;
-    color: aliceblue; 
+    color: aliceblue;
+    direction: rtl; /* Right-to-left layout */
 }
 
-.nav_links{
+.li{
+    direction: rtl;
+    font-size: 24px;
+}
+
+.nav_links {
     list-style-type: none;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0;
     padding: 0;
+    
 }
 
-.nav_links li{
-    margin: 0 10px;
-}
-
-.nav_links a{
-    color: white;
-    text-decoration: none;
-}
-
-.logo{
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.nav_links li{
+.nav_links li {
     margin: 0 10px;
     position: relative;
     
 }
 
-.dropdown{
+.nav_links a {
+    color: white;
+    text-decoration: none;
+    padding: 10px; /* Adjust padding for better spacing */
+    transition: all 0.3s ease; /* Add smooth transition effects */
+    
+}
+
+.nav_links li:hover > a {
+    color: dodgerblue; /* Change color on hover */
+}
+
+.dropdown {
     position: absolute;
     top: 100%;
-    left: 0;
+    right: 0; /* Align dropdown to the right */
     background-color: #333;
     display: none;
     z-index: 1;
+    border-radius: 5px; /* Add rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
 }
 
-.nav_links li:hover .dropdown{
+.nav_links li:hover .dropdown {
     display: block;
+}
+
+.dropdown li {
+    margin: 0;
+}
+
+.dropdown a {
+    display: block;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease; /* Add smooth transition effects */
+}
+
+.dropdown a:hover {
+    background-color: #444; /* Change background color on hover */
 }

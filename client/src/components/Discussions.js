@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Nav from "../components/Nav"
+import Nav from "./Nav"
+import "../assets/stylesheets/Discussions.css";
 
-const Discussion = ({ podcastTitle }) => {
+const Discussions = ({ podcastTitle }) => {
   const [discussions, setDiscussions] = useState([]);
   const [newDiscussion, setNewDiscussion] = useState("");
   const [commentInputs, setCommentInputs] = useState({
@@ -98,73 +99,40 @@ const Discussion = ({ podcastTitle }) => {
 
 
 
- return (
+return (
   <>
-    <div>
-      <Nav/>
-      <h4>Discussions for "{podcastTitle}"</h4>
-      <div>
+    <Nav className="nav" />
+    <div className="discussions-container">
+      <div className="discussion-input">
         <input
           type="text"
           value={newDiscussion}
           onChange={(e) => setNewDiscussion(e.target.value)}
-          placeholder="Start a new discussion..."
+          placeholder="התחל דיון חדש"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               handleAddDiscussion();
             }
           }}
         />
-        <button onClick={handleAddDiscussion}>Add Discussion</button>
+        <button onClick={handleAddDiscussion}>הוסף דיון</button>
       </div>
-      <ul>
+      <ul className="discussion-list">
         {discussions.map((discussion, discussionIndex) => (
-          <li key={discussionIndex}>
-            {discussion.discussion_text}
-            <ul>
+          <li key={discussionIndex} className="discussion-item">
+            <div className="discussion-text">{discussion.discussion_text}</div>
+            <ul className="comment-list">
               {discussion.comments &&
                 discussion.comments.map((comment, commentIndex) => (
-                  <li key={commentIndex}>
-                    {comment.text}
-                    <div>
-                      <input
-                        type="text"
-                        placeholder="Add a comment..."
-                        value={commentInputs[`${discussionIndex}-${commentIndex}`] || ""}
-                        onChange={(e) => {
-                          const newInputs = { ...commentInputs };
-                          newInputs[`${discussionIndex}-${commentIndex}`] = e.target.value;
-                          setCommentInputs(newInputs);
-                        }}
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter") {
-                            handleAddComment(
-                              discussionIndex,
-                              commentInputs[`${discussionIndex}-${commentIndex}`],
-                              comment.id
-                            );
-                          }
-                        }}
-                      />
-                      <button
-                        onClick={() =>
-                          handleAddComment(
-                            discussionIndex,
-                            commentInputs[`${discussionIndex}-${commentIndex}`],
-                            comment.id
-                          )
-                        }
-                      >
-                        Post
-                      </button>
-                    </div>
+                  <li key={commentIndex} className="comment-item">
+                    <div className="comment-text">{comment.text}</div>
                   </li>
                 ))}
             </ul>
-            <div>
+            <div className="comment-input">
               <input
                 type="text"
-                placeholder="Add a comment..."
+                placeholder="הוסף תגובה..."
                 value={commentInputs[discussionIndex] || ""}
                 onChange={(e) => {
                   const newInputs = { ...commentInputs };
@@ -182,15 +150,15 @@ const Discussion = ({ podcastTitle }) => {
                   handleAddComment(discussionIndex, commentInputs[discussionIndex])
                 }
               >
-                Post
+                פרסם
               </button>
             </div>
           </li>
         ))}
       </ul>
     </div>
-    </>
-  );
+  </>
+);
 };
 
-export default Discussion;
+export default Discussions;

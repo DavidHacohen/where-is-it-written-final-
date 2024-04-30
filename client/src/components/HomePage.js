@@ -9,6 +9,7 @@ import Slideshow from "./Slideshow";
 
 
 
+
 function HomePage(props) {
   const images = [
     img, img3 
@@ -20,7 +21,8 @@ function HomePage(props) {
       <div className="backgroundContainer">
         <div className="textContainer">
           <h1 className="mainAdding">איפה זה כתוב - מושגים ביהדות</h1>
-          <h2 className="subAdding">בלללללללללללללללללללללללללללללללללללל</h2>
+          <h2 className="subAdding">אתר המספק תכנים יהודים, מקורות, טעמים והיסטוריה של מצוות ומנהגי הדת היהודית,  
+          מוגש בקצרה במטרה להנגיש את היהדות למתבונן מבחוץ וגם למי ששומר מצוות ומחפש את המקורות למנהגיו</h2>
         </div>
       </div>
       <div>

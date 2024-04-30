@@ -1,0 +1,21 @@
+.container{
+    text-align: center;
+}
+.h1 {
+    font-size: 80px;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap; /* Prevent text from wrapping */
+    animation: slide-left 15s linear infinite; /* Set animation to loop infinitely */
+  }
+  
+  @keyframes slide-left {
+    0% {
+      transform: translateX(-100%); /* Start from the right side */
+    }
+    100% {
+      transform: translateX(100%); /* Move to the left side */
+    }
+  }
+  
+  
