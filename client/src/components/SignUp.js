@@ -14,7 +14,10 @@ const REGISTER_URL = 'http://localhost:5000/SignUp';
 
 const SignUp = () => {
   const userRef = useRef();
+  const pwdRef = useRef();
+  const matchPwdRef = useRef();
   const errRef = useRef();
+  const navigate = useNavigate();
 
   const [user, setUser] = useState('');
   const [validName, setValidName] = useState(false);
@@ -67,14 +70,17 @@ const handleSubmit = async (e) => {
         console.log("handleSubmit if")
         return;
     }
-    try {
-      const response = await fetch(REGISTER_URL, formData, {
+    try { console.log("ffff")
+      const response = await fetch(REGISTER_URL, {
         method: "POST",
         headers: { 'Content-Type': 'multipart/form-data' },
+        body: JSON.stringify({ username: user,
+          password: pwd }),
       });
-      console.log(response?.data);
-      console.log(response?.accessToken);
-      console.log(JSON.stringify(response))
+      console.log("hhhh", response.data);
+      // console.log(response.accessToken);
+      // console.log(JSON.stringify(response));
+
       setSuccess(true);
       //clear state and controlled inputs
       //need value attrib on inputs for this
@@ -84,7 +90,7 @@ const handleSubmit = async (e) => {
   } catch (err) {
       if (!err?.response) {
           setErrMsg('אין תגובה מהשרת');
-      } else if (err.response?.status === 409) {
+      } else if (err.response.status === 409) {
           setErrMsg('שם משתמש תפוס');
       } else {
           setErrMsg('רישום נכשל')
@@ -98,7 +104,7 @@ const handleSubmit = async (e) => {
     <>
      {success ? (
                 <section>
-                    <h1>Success!</h1>
+                    <h1>נרשמת בהצלחה</h1>
                     <p>
                         <a href="#">הירשם</a>
                     </p>

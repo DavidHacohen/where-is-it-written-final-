@@ -5,16 +5,26 @@ import "../assets/stylesheets/home.css"
 import img from "../assets/images/pexels-tim-mossholder-974314 (1).jpg";
 import img3 from "../assets/images/tefillin-1297846.jpg";
 import Slideshow from "./Slideshow";
+import { Navigate, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 
 
 
 
 function HomePage(props) {
+  const navigate = useNavigate();
+
   const images = [
     img, img3 
   ]
-  
+
+//מגביל את הכניסה רק למי שיש לו טוקן
+  // useEffect(() => {
+  //   if (localStorage.getItem('token') == null ) {
+  //     navigate('/login')
+  //   }
+  // }, [])
   return (
     <>
      <Nav/ >
