@@ -13,10 +13,11 @@ const LogIn = () => {
     e.preventDefault();
     try{
       const response = await axios.post('http://127.0.0.1:5000/login', {
-        "username": userName,
+        "userName": userName,
         "password": password
       });
       console.log(response.data);
+      localStorage.setItem('userName', userName);
       localStorage.setItem('token', response.data['access_token']);
       if (localStorage.getItem('token') != null) {
         navigate('/homePage');

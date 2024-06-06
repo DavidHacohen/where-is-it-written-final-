@@ -14,7 +14,6 @@ const Discussions = ({ podcastTitle }) => {
       if (response.ok) {
         const data = await response.json();
         setDiscussions(data);
-        console.log(data)
       } else {
         console.error("Failed to fetch discussions:", response.statusText);
       }
@@ -29,6 +28,8 @@ const Discussions = ({ podcastTitle }) => {
 
   const handleAddDiscussion = async () => {
     if (localStorage.getItem('token') != null) {
+      const userName = localStorage.getItem('userName'); 
+      console.log("userName:", userName)
       if (newDiscussion.trim() !== "") {
         try {
           const response = await fetch("http://localhost:5000/discussions", {
@@ -37,11 +38,11 @@ const Discussions = ({ podcastTitle }) => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              discussion_text: newDiscussion,
-              comments: [],
+              discussion_text: newDiscussion, 
+              userName: userName
             }),
           });
-
+          console.log('תגובת שרת',response.data)
           if (response.ok) {
             fetchDiscussions();
           } else {
@@ -59,7 +60,7 @@ const Discussions = ({ podcastTitle }) => {
 
   const handleAddComment = async (discussionIndex, commentText) => {
     if (localStorage.getItem('token') != null) {
-      const discussionId = discussions[discussionIndex].discussion_id;
+      const discussionId = discussionIndex;
       try {
         const response = await fetch(
           `http://localhost:5000/discussions/${discussionId}/comments`,
@@ -73,6 +74,7 @@ const Discussions = ({ podcastTitle }) => {
         );
 
         if (response.ok) {
+          fetchDiscussions()
           const data = await response.json();
           console.log(
             "Comment added successfully. Comment ID:",
@@ -139,8 +141,8 @@ const Discussions = ({ podcastTitle }) => {
               <ul className="comment-list">
                 {discussion.comments &&
                   discussion.comments.map((comment) => (
-                    <li key={comment.id} className="comment-item">
-                      <div className="comment-text">{comment.text}</div>
+                    <li key={comment.comment_id} className="comment-item">
+                      <div className="comment-text">{comment.comment_text}</div>
                     </li>
                   ))}
               </ul>
@@ -164,7 +166,7 @@ const Discussions = ({ podcastTitle }) => {
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       handleAddComment(
-                        discussionIndex,
+                        discussion.discussion_id,
                         commentInputs[discussion.discussion_id]
                       );
                     }
@@ -174,7 +176,7 @@ const Discussions = ({ podcastTitle }) => {
                 <button
                   onClick={() =>
                     handleAddComment(
-                      discussionIndex,
+                      discussion.discussion_id,
                       commentInputs[discussion.discussion_id]
                     )
                   }
