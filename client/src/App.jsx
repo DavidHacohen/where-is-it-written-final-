@@ -16,7 +16,7 @@ import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
 import Discussions from "./components/Discussions";
 import About from "./components/About"
-import Contact from "./components/Contact"
+import Contact from "./components/ContactUs"
 import { UserProvider } from "./components/UserContext";
 
 const App = () => {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Nav from "./Nav";
 import "../assets/stylesheets/Discussions.css";
+import DiscussionItem from "./DiscussionsItem";
 
 const Discussions = ({ podcastTitle }) => {
   const [discussions, setDiscussions] = useState([]);
@@ -14,6 +15,7 @@ const Discussions = ({ podcastTitle }) => {
       if (response.ok) {
         const data = await response.json();
         setDiscussions(data);
+        console.log(data);
       } else {
         console.error("Failed to fetch discussions:", response.statusText);
       }
@@ -27,9 +29,9 @@ const Discussions = ({ podcastTitle }) => {
   }, []);
 
   const handleAddDiscussion = async () => {
-    if (localStorage.getItem('token') != null) {
-      const userName = localStorage.getItem('userName'); 
-      console.log("userName:", userName)
+    if (localStorage.getItem("token") != null) {
+      const userName = localStorage.getItem("userName");
+      console.log("userName:", userName);
       if (newDiscussion.trim() !== "") {
         try {
           const response = await fetch("http://localhost:5000/discussions", {
@@ -38,11 +40,11 @@ const Discussions = ({ podcastTitle }) => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              discussion_text: newDiscussion, 
-              userName: userName
+              discussion_text: newDiscussion,
+              userName: userName,
             }),
           });
-          console.log('תגובת שרת',response.data)
+          console.log("תגובת שרת", response);
           if (response.ok) {
             fetchDiscussions();
           } else {
@@ -56,11 +58,15 @@ const Discussions = ({ podcastTitle }) => {
         setNewDiscussion("");
       }
     }
+    else {
+      alert('עליך להתחבר כדי להגיב!')
+    }
   };
 
   const handleAddComment = async (discussionIndex, commentText) => {
-    if (localStorage.getItem('token') != null) {
+    if (localStorage.getItem("token") != null) {
       const discussionId = discussionIndex;
+      const userName = localStorage.getItem("userName");
       try {
         const response = await fetch(
           `http://localhost:5000/discussions/${discussionId}/comments`,
@@ -69,12 +75,12 @@ const Discussions = ({ podcastTitle }) => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ text: commentText }),
+            body: JSON.stringify({ text: commentText, username: userName }),
           }
         );
 
         if (response.ok) {
-          fetchDiscussions()
+          fetchDiscussions();
           const data = await response.json();
           console.log(
             "Comment added successfully. Comment ID:",
@@ -110,6 +116,9 @@ const Discussions = ({ podcastTitle }) => {
       setCommentInputs(newInputs);
       setRemainingChars(100);
     }
+    else {
+      alert('עליך להתחבר כדי להגיב!')
+    }
   };
 
   return (
@@ -134,15 +143,33 @@ const Discussions = ({ podcastTitle }) => {
         </div>
         <ul className="discussion-list">
           {discussions.map((discussion, discussionIndex) => (
+            // <DiscussionItem
+            // key={discussion.discussion_id}
+            // discussion={discussion}
+            // handleAddComment={handleAddComment}
+            // commentInputs={commentInputs}
+            // setCommentInputs={setCommentInputs}
+            // remainingChars={remainingChars}
+            // setRemainingChars={setRemainingChars}
+            // />
+            
+
             <li key={discussion.discussion_id} className="discussion-item">
               <div className="discussion-text">
                 {discussion.discussion_text}
+              </div>
+              <div className="discussion-author">
+                {discussion.first_name} {discussion.last_name}
               </div>
               <ul className="comment-list">
                 {discussion.comments &&
                   discussion.comments.map((comment) => (
                     <li key={comment.comment_id} className="comment-item">
                       <div className="comment-text">{comment.comment_text}</div>
+                      <div className="comment-author">
+                        {comment.first_name} {comment.last_name}
+                        {console.log("comment-firstName:", comment.first_name)}
+                      </div>
                     </li>
                   ))}
               </ul>
@@ -172,7 +199,9 @@ const Discussions = ({ podcastTitle }) => {
                     }
                   }}
                 />
-                <div>{remainingChars}/{100} characters remaining</div>
+                <div>
+                  {remainingChars}/{100} characters remaining
+                </div>
                 <button
                   onClick={() =>
                     handleAddComment(
