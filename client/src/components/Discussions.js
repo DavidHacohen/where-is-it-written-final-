@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import Nav from "./Nav";
 import "../assets/stylesheets/Discussions.css";
 import DiscussionItem from "./DiscussionsItem";
+import CommentItem from "./CommentItem";
+import { ToastContainer,toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Discussions = ({ podcastTitle }) => {
   const [discussions, setDiscussions] = useState([]);
@@ -47,6 +50,14 @@ const Discussions = ({ podcastTitle }) => {
           console.log("תגובת שרת", response);
           if (response.ok) {
             fetchDiscussions();
+            toast.success("הדיון נוסף בהצלחה",{position: "top-right",
+              autoClose: 8000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",});
           } else {
             const data = await response.json();
             console.error(`Failed to add discussion: ${data.message}`);
@@ -59,7 +70,14 @@ const Discussions = ({ podcastTitle }) => {
       }
     }
     else {
-      alert('עליך להתחבר כדי להגיב!')
+      toast.error("עליך להתחבר כדי להגיב",{position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",});
     }
   };
 
@@ -143,80 +161,19 @@ const Discussions = ({ podcastTitle }) => {
         </div>
         <ul className="discussion-list">
           {discussions.map((discussion, discussionIndex) => (
-            // <DiscussionItem
-            // key={discussion.discussion_id}
-            // discussion={discussion}
-            // handleAddComment={handleAddComment}
-            // commentInputs={commentInputs}
-            // setCommentInputs={setCommentInputs}
-            // remainingChars={remainingChars}
-            // setRemainingChars={setRemainingChars}
-            // />
-            
-
-            <li key={discussion.discussion_id} className="discussion-item">
-              <div className="discussion-text">
-                {discussion.discussion_text}
-              </div>
-              <div className="discussion-author">
-                {discussion.first_name} {discussion.last_name}
-              </div>
-              <ul className="comment-list">
-                {discussion.comments &&
-                  discussion.comments.map((comment) => (
-                    <li key={comment.comment_id} className="comment-item">
-                      <div className="comment-text">{comment.comment_text}</div>
-                      <div className="comment-author">
-                        {comment.first_name} {comment.last_name}
-                        {console.log("comment-firstName:", comment.first_name)}
-                      </div>
-                    </li>
-                  ))}
-              </ul>
-              <div className="comment-input">
-                <textarea
-                  className="commentField"
-                  rows={2}
-                  type="text"
-                  maxLength={100}
-                  placeholder="Add a comment..."
-                  value={commentInputs[discussion.discussion_id] || ""}
-                  onChange={(e) => {
-                    const newInputs = { ...commentInputs };
-                    const value = e.target.value;
-                    if (value.length <= 100) {
-                      newInputs[discussion.discussion_id] = value;
-                      setCommentInputs(newInputs);
-                      setRemainingChars(100 - value.length);
-                    }
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      handleAddComment(
-                        discussion.discussion_id,
-                        commentInputs[discussion.discussion_id]
-                      );
-                    }
-                  }}
-                />
-                <div>
-                  {remainingChars}/{100} characters remaining
-                </div>
-                <button
-                  onClick={() =>
-                    handleAddComment(
-                      discussion.discussion_id,
-                      commentInputs[discussion.discussion_id]
-                    )
-                  }
-                >
-                  Post
-                </button>
-              </div>
-            </li>
+            <DiscussionItem
+            key={discussion.discussion_id}
+            discussion={discussion}
+            handleAddComment={handleAddComment}
+            commentInputs={commentInputs}
+            setCommentInputs={setCommentInputs}
+            remainingChars={remainingChars}
+            setRemainingChars={setRemainingChars}
+            />
           ))}
         </ul>
       </div>
+      <ToastContainer/>
     </>
   );
 };

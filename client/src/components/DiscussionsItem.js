@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-
+import React from "react";
+import CommentItem from "./CommentItem";
 const DiscussionItem = ({
   discussion,
   handleAddComment,
@@ -10,21 +10,27 @@ const DiscussionItem = ({
 }) => {
   return (
     <li className="discussion-item">
-      <div className="discussion-text">{discussion.discussion_text}</div>
-      <div className="discussion-meta">
-        <span className="discussion-date">
-          {discussion.discussion_created_at}
-        </span>
-      </div>
+      {" "}
+      <div className="discussion-text">
+        {" "}
+        <h3>{discussion.discussion_text}</h3>{" "}
+      </div>{" "}
+      <div
+        className="discussion-author"
+        style={{ color: "blue" }}
+      >
+        {" "}
+        {discussion.first_name} {discussion.last_name}{" "}
+      </div>{" "}
       <ul className="comment-list">
+        {" "}
         {discussion.comments &&
           discussion.comments.map((comment) => (
-            <li key={comment.id} className="comment-item">
-              <div className="comment-text">{comment.text}</div>
-            </li>
-          ))}
-      </ul>
+            <CommentItem key={comment.comment_id} comment={comment} />
+          ))}{" "}
+      </ul>{" "}
       <div className="comment-input">
+        {" "}
         <textarea
           className="commentField"
           rows={2}
@@ -49,10 +55,11 @@ const DiscussionItem = ({
               );
             }
           }}
-        />
+        />{" "}
         <div>
-          {remainingChars}/{100} characters remaining
-        </div>
+          {" "}
+          {remainingChars}/{100} characters remaining{" "}
+        </div>{" "}
         <button
           onClick={() =>
             handleAddComment(
@@ -61,11 +68,11 @@ const DiscussionItem = ({
             )
           }
         >
-          Post
-        </button>
-      </div>
+          {" "}
+          Post{" "}
+        </button>{" "}
+      </div>{" "}
     </li>
   );
 };
-
 export default DiscussionItem;

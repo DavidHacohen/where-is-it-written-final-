@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import "../assets/stylesheets/ContactUs.css";
+import Nav from "./Nav";
 
 
 const ContactUs = () => {
@@ -38,25 +39,28 @@ const ContactUs = () => {
   };
 
   return (
+    <>
+    <Nav className="nav" />
     <form onSubmit={handleSubmit}>
       <div>
-        <label>First Name:</label>
+        <label>שם פרטי:</label>
         <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required />
       </div>
       <div>
-        <label>Last Name:</label>
+        <label>שם משפחה:</label>
         <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required />
       </div>
       <div>
-        <label>Email:</label>
+        <label>אימייל:</label>
         <input type="email" name="email" value={formData.email} onChange={handleChange} required />
       </div>
       <div>
-        <label>Message:</label>
+        <label>תוכן ההודעה:</label>
         <textarea name="message" value={formData.message} onChange={handleChange} required />
       </div>
       <button type="submit">Send</button>
     </form>
+    </>
   );
 };
 
