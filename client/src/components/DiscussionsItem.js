@@ -35,16 +35,16 @@ const DiscussionItem = ({
           className="commentField"
           rows={2}
           type="text"
-          maxLength={100}
+          maxLength={300}
           placeholder="Add a comment..."
           value={commentInputs[discussion.discussion_id] || ""}
           onChange={(e) => {
             const newInputs = { ...commentInputs };
             const value = e.target.value;
-            if (value.length <= 100) {
+            if (value.length <= 300) {
               newInputs[discussion.discussion_id] = value;
               setCommentInputs(newInputs);
-              setRemainingChars(100 - value.length);
+              setRemainingChars(300 - value.length);
             }
           }}
           onKeyDown={(e) => {
@@ -58,7 +58,7 @@ const DiscussionItem = ({
         />{" "}
         <div>
           {" "}
-          {remainingChars}/{100} characters remaining{" "}
+          {remainingChars}/{300} characters remaining{" "}
         </div>{" "}
         <button
           onClick={() =>

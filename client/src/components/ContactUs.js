@@ -7,7 +7,7 @@ const ContactUs = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    email: '',
+    user: '',
     message: ''
   });
 
@@ -18,6 +18,7 @@ const ContactUs = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(formData)
     try {
       const response = await fetch('http://localhost:5000/contact', {
         method: 'POST',
@@ -28,7 +29,7 @@ const ContactUs = () => {
       });
       if (response.ok) {
         alert('Message sent successfully');
-        setFormData({ firstName: '', lastName: '', email: '', message: '' });
+        setFormData({ firstName: '', lastName: '', user: '', message: '' });
       } else {
         alert('Failed to send message');
       }
@@ -52,7 +53,7 @@ const ContactUs = () => {
       </div>
       <div>
         <label>אימייל:</label>
-        <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+        <input type="user" name="user" value={formData.user} onChange={handleChange} required />
       </div>
       <div>
         <label>תוכן ההודעה:</label>
