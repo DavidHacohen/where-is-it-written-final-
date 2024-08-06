@@ -4,32 +4,41 @@ import Nav from "./Nav";
 
 
 const ContactUs = () => {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    user: '',
-    message: ''
-  });
+  const [firstName1, setfirstName1] = useState("")
+  const [lastName1, setlastName1] = useState("")
+  const [user1, setuser1] = useState("")
+  const [message1, setmessage1] = useState("")
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+
+
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData({ ...formData, [name]: value });
+  // };
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData)
+    const data = {
+      "firstName1": firstName1,
+      "lastName1": lastName1,
+      "user1": user1,
+      "message1": message1 
+    }
+    console.log(data)
     try {
       const response = await fetch('http://localhost:5000/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(data)
       });
       if (response.ok) {
         alert('Message sent successfully');
-        setFormData({ firstName: '', lastName: '', user: '', message: '' });
+  
+        // setFormData({ firstName1: '', lastName1: '', user1: '', message1: '' });
       } else {
         alert('Failed to send message');
       }
@@ -45,19 +54,19 @@ const ContactUs = () => {
     <form onSubmit={handleSubmit}>
       <div>
         <label>שם פרטי:</label>
-        <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required />
+        <input type="text" name="firstName" value={firstName1} onChange= {(e) => {setfirstName1(e.target.value)}} required />
       </div>
       <div>
         <label>שם משפחה:</label>
-        <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required />
+        <input type="text" name="lastName" value={lastName1} onChange= {(e) => {setlastName1(e.target.value)}}required />
       </div>
       <div>
         <label>אימייל:</label>
-        <input type="user" name="user" value={formData.user} onChange={handleChange} required />
+        <input type="user" name="user" value={user1} onChange= {(e) => {setuser1(e.target.value)}} required />
       </div>
       <div>
         <label>תוכן ההודעה:</label>
-        <textarea name="message" value={formData.message} onChange={handleChange} required />
+        <textarea name="message" value={message1} onChange= {(e) => {setmessage1(e.target.value)}} required />
       </div>
       <button type="submit">Send</button>
     </form>

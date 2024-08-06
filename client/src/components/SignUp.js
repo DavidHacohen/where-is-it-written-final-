@@ -126,7 +126,7 @@ const SignUp = () => {
               type="text"
               id="userName"
               ref={userRef}
-              autocomplete="off"
+              autoComplete="off"
               onChange={(e) => setUsername(e.target.value)}
               required
               aria-invalid={validName ? "false" : "true"}
@@ -248,7 +248,7 @@ const SignUp = () => {
             <br />
             <span className="line">
               {/*put router link here*/}
-              <a href="#">התחבר</a>
+              <a href="">התחבר</a>
             </span>
           </p>
         </section>
