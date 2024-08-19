@@ -54,23 +54,19 @@ const Nav = () => {
           </li>
           <li className="li">
             <Link to="/userProfile">פרופיל משתמש</Link>
-            <ul className="dropdown">
-              {!userName && (
+            <ul className="dropdown">        
                 <li>
                   <a href="/signup">הירשם</a>
                 </li>
-              )}
-              {!userName && (
                 <li>
                   <a href="/login">התחבר</a>
-                </li>
-              )}
+                </li>        
             </ul>
           </li>
           {userName && (
-            <li className="li">
+            <li className="li-userName">
               <span>{userName}</span>
-              <button onClick={handleLogout}>התנתק</button>
+              <button className="li-userNameButton" onClick={handleLogout}>התנתק</button>
             </li>
           )}
         </ul>

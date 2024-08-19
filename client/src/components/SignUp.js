@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import "../assets/stylesheets/SignUp.css";
 import axios from "../api/axios";
+import { Link } from "react-router-dom";
 
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const PWD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
@@ -84,7 +85,7 @@ const SignUp = () => {
     } catch (err) {
       if (!err?.response) {
         setErrMsg("אין תגובה מהשרת");
-      } else if (err.response.status === 409) {
+      } else if (err.response.status === 401) {
         setErrMsg("שם משתמש תפוס");
       } else {
         setErrMsg("רישום נכשל");
@@ -99,7 +100,7 @@ const SignUp = () => {
         <section>
           <h1>נרשמת בהצלחה</h1>
           <p>
-            <a href="#">התחבר</a>
+            <a href="http://localhost:3000/login">התחבר</a>
           </p>
         </section>
       ) : (
@@ -111,7 +112,7 @@ const SignUp = () => {
           >
             {errMsg}
           </p>
-          <h1>הירשם</h1>
+          <h1 className="headline">הירשם</h1>
           <form onSubmit={handleSubmit} method="POST">
             <label htmlFor="שם משתמש">
               שם משתמש:
@@ -248,7 +249,7 @@ const SignUp = () => {
             <br />
             <span className="line">
               {/*put router link here*/}
-              <a href="">התחבר</a>
+              <a href="http://localhost:3000/login">התחבר</a>
             </span>
           </p>
         </section>

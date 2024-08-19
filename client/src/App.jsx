@@ -17,7 +17,10 @@ import LogIn from "./components/LogIn";
 import Discussions from "./components/Discussions";
 import About from "./components/About"
 import Contact from "./components/ContactUs"
+import ForgetPassword from "./components/ForgetPassword"
+import ResetPassword from "./components/ResetPassword";
 import { UserProvider } from "./components/UserContext";
+
 
 const App = () => {
   const [user, setUser] = useState(null); // Use state to manage user data
@@ -37,6 +40,8 @@ const App = () => {
           <Route path="/userProfile" element={<UserProfile />} />
           <Route path="/aboutUs" element={<About />} />
           <Route path="/contactUs" element={<Contact />} />
+          <Route path="/forgetpassword" element={<ForgetPassword />} />
+          <Route path="/resetPassword" element={<ResetPassword />} />
           <Route path="*" element={<NoPage />} />
         </Routes>
       </Router>

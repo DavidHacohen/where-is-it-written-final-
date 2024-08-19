@@ -25,12 +25,13 @@
 }
 
 .discussion-input button {
-  padding: 10px 20px;
+  padding: 5px 5px;
   border: none;
   background-color: #007bff;
   color: #fff;
   border-radius: 5px;
   cursor: pointer;
+  margin-bottom: 30px;
 }
 
 .discussion-list {
@@ -71,21 +72,17 @@
   width: 100%;
 }
 
-.commentField{
-  height: 50px;
-  width: 100%;
-}
-
 .comment-input {
   margin-top: 10px;
+  display: flex;
+  align-items: center;
 }
 
-.comment-input input[type="text"] {
+.commentField {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
   margin-bottom: 5px;
+  border-radius: 5px;
 }
 
 .comment-input button {
@@ -95,6 +92,22 @@
   color: #fff;
   border-radius: 5px;
   cursor: pointer;
+  margin-right: 10px; /* Adjusted to align with the textarea */
+  margin-bottom: 30px;
+}
+
+.comment-input div {
+  margin-right: 10px; /* Add margin to the right to create space between the textarea and the text */
+  font-size: 14px; /* Optional: Adjust font size if needed */
+  white-space: nowrap; /* Ensure the text stays on one line */
+}
+
+.comment-input input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 5px;
 }
 
 

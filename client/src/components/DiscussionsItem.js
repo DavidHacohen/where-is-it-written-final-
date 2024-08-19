@@ -36,7 +36,7 @@ const DiscussionItem = ({
           rows={2}
           type="text"
           maxLength={300}
-          placeholder="Add a comment..."
+          placeholder="הוסף תגובה..."
           value={commentInputs[discussion.discussion_id] || ""}
           onChange={(e) => {
             const newInputs = { ...commentInputs };
@@ -58,7 +58,7 @@ const DiscussionItem = ({
         />{" "}
         <div>
           {" "}
-          {remainingChars}/{300} characters remaining{" "}
+          {remainingChars}/{300}  <br /> תווים נותרו {" "}
         </div>{" "}
         <button
           onClick={() =>
@@ -69,7 +69,7 @@ const DiscussionItem = ({
           }
         >
           {" "}
-          Post{" "}
+          פרסם{" "}
         </button>{" "}
       </div>{" "}
     </li>

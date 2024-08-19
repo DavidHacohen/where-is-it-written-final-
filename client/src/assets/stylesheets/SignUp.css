@@ -27,8 +27,8 @@
 
 section {
     width: 100%;
-    max-width: 420px;
-    min-height: 400px;
+    max-width: 2000px;
+    min-height: 500px;
     /* display: flex; */
     flex-direction: column;
     display: flex; 
@@ -115,3 +115,4 @@ button {
 .line {
     display: inline-block;
 }
+

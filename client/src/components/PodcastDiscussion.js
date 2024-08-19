@@ -119,14 +119,14 @@ const PodcastDiscussion = ({ podcastTitle }) => {
           rows={4}
           value={newDiscussion}
           onChange={(e) => setNewDiscussion(e.target.value)}
-          placeholder="Start a new discussion"
+          placeholder="התחל דיון חדש..."
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               handleAddDiscussion();
             }
           }}
         />
-        <button onClick={handleAddDiscussion}>Add Discussion</button>
+        <button onClick={handleAddDiscussion}>הוסף דיון</button>
       </div>
       <ul className="discussion-list">
         {discussions.map((discussion, discussionIndex) => (

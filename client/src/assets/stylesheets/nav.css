@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 0px;
     background-color: #2b2121;
     color: aliceblue;
     direction: rtl; /* Right-to-left layout */
@@ -70,4 +70,28 @@
 
 .dropdown a:hover {
     background-color: #444; /* Change background color on hover */
+}
+
+.li-userName {
+    font-size: 24px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* padding: 20px; */
+    background-color: #2b2121;
+    color: aliceblue;
+    direction: rtl; 
+
+}
+
+.li-userNameButton {
+    padding: 3px 3px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    margin-right: 10px;
 }
