@@ -30,6 +30,7 @@ const Podcasts = () => {
         {podcasts.map((podcast) => (
           <Podcast
             key={podcast.PodcastId}
+            podcastId={podcast.PodcastId}
             title={podcast.PodcastTitle}
             videoSrc={podcast.VideoSrc}
           />

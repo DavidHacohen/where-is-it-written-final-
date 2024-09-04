@@ -3,112 +3,12 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import "../assets/stylesheets/PodcastDiscussion.css"; // Import the CSS file
 
-const PodcastDiscussion = ({ podcastTitle }) => {
+const PodcastDiscussion = ({ podcast_discussion }) => {
+  console.log(PodcastDiscussion)
   const [discussions, setDiscussions] = useState([]);
   const [newDiscussion, setNewDiscussion] = useState("");
   const [commentInputs, setCommentInputs] = useState({});
   const [remainingChars, setRemainingChars] = useState(0);
-
-  const fetchDiscussions = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/PodcastDiscussion");
-      if (response.ok) {
-        const data = await response.json();
-        setDiscussions(data);
-      } else {
-        console.error("Failed to fetch discussions:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error fetching discussions:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchDiscussions();
-  }, []);
-
-  const handleAddDiscussion = async () => {
-    if (localStorage.getItem("token") != null) {
-      const userName = localStorage.getItem("userName");
-      if (newDiscussion.trim() !== "") {
-        try {
-          const response = await fetch("http://localhost:5000/discussions", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              discussion_text: newDiscussion,
-              userName: userName,
-            }),
-          });
-
-          if (response.ok) {
-            fetchDiscussions();
-          } else {
-            const data = await response.json();
-            console.error("Failed to add discussion: ${data.message}");
-          }
-        } catch (error) {
-          console.error("Error adding discussion:", error);
-        }
-
-        setNewDiscussion("");
-      }
-    } else {
-      alert("עליך להתחבר כדי להגיב!");
-    }
-  };
-
-  const handleAddComment = async (discussionIndex, commentText) => {
-    if (localStorage.getItem("token") != null) {
-      const discussionId = discussionIndex;
-      const userName = localStorage.getItem("userName");
-      try {
-        const response = await fetch(
-          "http://localhost:5000/discussions/${discussionId}/comments",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ text: commentText, username: userName }),
-          }
-        );
-
-        if (response.ok) {
-          fetchDiscussions();
-          const data = await response.json();
-
-          // Update discussions state to reflect new comment ID
-          const updatedDiscussions = [...discussions];
-          const updatedDiscussion = { ...updatedDiscussions[discussionIndex] };
-          if (!updatedDiscussion.comments) {
-            updatedDiscussion.comments = []; // Initialize comments array if it doesn't exist
-          }
-          updatedDiscussion.comments.push({
-            id: data.comment_id, // Include the received comment ID
-            text: commentText,
-          });
-          updatedDiscussions[discussionIndex] = updatedDiscussion;
-          setDiscussions(updatedDiscussions);
-        } else {
-          const data = await response.json();
-          console.error("Failed to add comment: ${data.message}");
-        }
-      } catch (error) {
-        console.error("Error adding comment:", error);
-      }
-
-      // Clear the comment input after adding the comment
-      const newInputs = { ...commentInputs };
-      newInputs[discussionId] = "";
-      setCommentInputs(newInputs);
-      setRemainingChars(100);
-    } else {
-      alert("עליך להתחבר כדי להגיב!");
-    }
-  };
 
   return (
     <div className="discussions-container">
@@ -122,11 +22,10 @@ const PodcastDiscussion = ({ podcastTitle }) => {
           placeholder="התחל דיון חדש..."
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              handleAddDiscussion();
+
             }
           }}
         />
-        <button onClick={handleAddDiscussion}>הוסף דיון</button>
       </div>
       <ul className="discussion-list">
         {discussions.map((discussion, discussionIndex) => (
@@ -173,26 +72,13 @@ const PodcastDiscussion = ({ podcastTitle }) => {
                 }}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
-                    handleAddComment(
-                      discussion.discussion_id,
-                      commentInputs[discussion.discussion_id]
-                    );
+
                   }
                 }}
               />
               <div>
                 {remainingChars}/{100} characters remaining
               </div>
-              <button
-                onClick={() =>
-                  handleAddComment(
-                    discussion.discussion_id,
-                    commentInputs[discussion.discussion_id]
-                  )
-                }
-              >
-                Post
-              </button>
             </div>
           </li>
         ))}
