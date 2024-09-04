@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 5px;
+    padding: 10px;
     background-color: #2b2121;
     color: aliceblue;
     direction: rtl; /* Right-to-left layout */

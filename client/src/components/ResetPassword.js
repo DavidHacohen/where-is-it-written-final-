@@ -4,27 +4,30 @@ import { useNavigate, useParams } from "react-router-dom";
 import "../assets/stylesheets/ResetPassword.css";
 
 const ResetPassword = () => {
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [tempPassword, setTempPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  const { token } = useParams();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
+    if (newPassword !== confirmPassword) {
       setMessage("Passwords do not match");
       return;
     }
 
     try {
-      const response = await axios.post(`http://127.0.0.1:5000/reset-password/${token}`, {
-        password,
+      const response = await axios.post(`http://127.0.0.1:5000/reset-password`, {
+        email,
+        temp_password: tempPassword,
+        new_password: newPassword,
       });
       setMessage("Password reset successfully");
       navigate("/login");
     } catch (error) {
-      setMessage("Failed to reset password. The link may be invalid or expired.");
+      setMessage("Failed to reset password. The temporary password may be invalid..");
     }
   };
 
@@ -33,11 +36,29 @@ const ResetPassword = () => {
       <h1>Reset Your Password</h1>
       <form onSubmit={handleSubmit}>
         <label>
+          <p>אימייל</p>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </label>
+        <label>
+        <p>Temporary Password</p>
+          <input
+            type="text"
+            value={tempPassword}
+            onChange={(e) => setTempPassword(e.target.value)}
+            required
+          />
+        </label>
+        <label>
           <p>New Password</p>
           <input
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
             required
           />
         </label>

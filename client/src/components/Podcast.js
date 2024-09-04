@@ -2,7 +2,22 @@ import React from "react";
 import PropTypes from "prop-types";
 import PodcastDiscussion from "./PodcastDiscussion"; // Import the PodcastDiscussion component
 
+
 const Podcast = ({ videoSrc, podcastTitle }) => {
+  // console.log({PodcastId})
+    // try {
+    //   const response = await fetch("http://localhost:5000/Podcasts");
+    //   if (response.ok) {
+    //     const data = await response.json();
+    //     console.log(data);
+    //   } else {
+    //     console.error("Failed to fetch podcasts:", response.statusText);
+    //   }
+    // } catch (error) {
+    //   console.error("Error fetching podcasts:", error);
+    // }
+
+ 
   return (
     <div style={{ textAlign: "center", marginBottom: "2rem", marginTop: "3rem" }}>
       <iframe
