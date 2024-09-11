@@ -3,10 +3,14 @@ import PropTypes from "prop-types";
 import PodcastDiscussion from "./PodcastDiscussion"; // Import the PodcastDiscussion component
 
 const Podcast = ({ podcastId, videoSrc, podcastTitle }) => {
-  const [podcastDiscussion, setPodcastDiscussion] = useState()
-  const fetchPodcastsDiscussion = (podcastId) => {
+  const [podcastDiscussion, setPodcastDiscussion] = useState(null);
+
+  const fetchPodcastsDiscussion = async (podcastId) => {
+    // Check if podcastId is valid before making the API call
+    if (!podcastId) return;
+
     try {
-      const response = fetch("http://localhost:5000/PodcastDiscussion/"+podcastId, {
+      const response = await fetch("http://localhost:5000/PodcastDiscussion?PodcastId=${podcastId}", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -14,22 +18,23 @@ const Podcast = ({ podcastId, videoSrc, podcastTitle }) => {
       });
 
       if (response.ok) {
-        const data = response.json();
+        const data = await response.json();
         console.log(data);
         setPodcastDiscussion(data);
       } else {
-        console.error("Failed to fetch podcasts:", response.statusText);
+        console.error("Failed to fetch podcast discussions:", response.statusText);
       }
     } catch (error) {
-      console.error("Error fetching podcasts:", error);
+      console.error("Error fetching podcast discussions:", error);
     }
   };
 
   useEffect(() => {
-    fetchPodcastsDiscussion({podcastId})
-  }, []);
-
-
+    // Only fetch discussions if podcastId is valid
+    if (podcastId) {
+      fetchPodcastsDiscussion(podcastId);
+    }
+  }, [podcastId]); // Re-run when podcastId changes
 
   
 
@@ -48,12 +53,17 @@ const Podcast = ({ podcastId, videoSrc, podcastTitle }) => {
         style={{ marginBottom: "1rem" }}
       ></iframe>
       {/* PodcastDiscussion component for the specific podcast */}
-      <PodcastDiscussion podcast_discussion={podcastDiscussion} />
+      {podcastDiscussion ? (
+        <PodcastDiscussion podcast_discussion={podcastDiscussion} />
+      ) : (
+        <p>Loading discussions...</p> // Display a loading message or fallback UI
+      )}
     </div>
   );
 };
 
 Podcast.propTypes = {
+  podcastId: PropTypes.string.isRequired, // Ensure that podcastId is required and should be a string
   videoSrc: PropTypes.string.isRequired,
   podcastTitle: PropTypes.string.isRequired,
 };

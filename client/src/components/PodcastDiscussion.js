@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import "../assets/stylesheets/PodcastDiscussion.css"; // Import the CSS file
 
 const PodcastDiscussion = ({ podcast_discussion }) => {
-  console.log(PodcastDiscussion)
+  console.log(podcast_discussion)
   const [discussions, setDiscussions] = useState([]);
   const [newDiscussion, setNewDiscussion] = useState("");
   const [commentInputs, setCommentInputs] = useState({});
