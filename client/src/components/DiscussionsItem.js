@@ -17,10 +17,15 @@ const DiscussionItem = ({
       </div>{" "}
       <div
         className="discussion-author"
-        style={{ color: "blue" }}
       >
         {" "}
-        {discussion.first_name} {discussion.last_name}{" "}
+        {discussion.first_name} {discussion.last_name}{" "} 
+      </div>{" "}
+      <div
+        className="discussion-date"
+      >
+        {" "}
+        {discussion.created_at} {" "}
       </div>{" "}
       <ul className="comment-list">
         {" "}

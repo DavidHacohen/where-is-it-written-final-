@@ -56,12 +56,9 @@ const SignUp = () => {
   useEffect(() => {
     setErrMsg("");
   }, [userName, first_name, last_name, password, matchPwd]);
-  //check
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if button enabled with JS hack
-    const formData = new FormData();
     const v1 = EMAIL_REGEX.test(userName);
     const v2 = PWD_REGEX.test(password);
     if (!v1 || !v2) {
@@ -104,7 +101,7 @@ const SignUp = () => {
           </p>
         </section>
       ) : (
-        <section>
+        <section className="signup-wrapper">
           <p
             ref={errRef}
             className={errMsg ? "errmsg" : "offscreen"}
@@ -115,7 +112,7 @@ const SignUp = () => {
           <h1 className="headline">הירשם</h1>
           <form onSubmit={handleSubmit} method="POST">
             <label htmlFor="שם משתמש">
-              שם משתמש:
+              כתובת מייל:
               <span className={validName ? "valid" : "hide"}>
                 <FontAwesomeIcon icon={faCheck} />
               </span>
@@ -144,28 +141,24 @@ const SignUp = () => {
               }
             >
               <FontAwesomeIcon icon={faInfoCircle} />
-              4 to 24 characters.
-              <br />
-              Must begin with a letter.
-              <br />
-              Letters, numbers, underscores, hyphens allowed.
+             כתובת מייל לא תקנית.
             </p>
-          
-            <label htmlFor="first name">שם פרטי:</label>
+
+            <label htmlFor="first_name">שם פרטי:</label>
             <input
-            type="text"
-            id="first_name"
-            onChange={(e) => setFirst_name(e.target.value)}
-            required
+              type="text"
+              id="first_name"
+              onChange={(e) => setFirst_name(e.target.value)}
+              required
             />
 
-              <label htmlFor="last_name">שם משפחה:</label>
-              <input
+            <label htmlFor="last_name">שם משפחה:</label>
+            <input
               type="text"
               id="last_name"
               onChange={(e) => setLast_name(e.target.value)}
               required
-              />
+            />
 
             <label htmlFor="password">
               סיסמה:
@@ -194,16 +187,9 @@ const SignUp = () => {
               className={pwdFocus && !validPwd ? "instructions" : "offscreen"}
             >
               <FontAwesomeIcon icon={faInfoCircle} />
-              8 to 24 characters.
+              8-24 תווים.
               <br />
-              Must include a number and a special character.
-              <br />
-              Allowed special characters:{" "}
-              <span aria-label="exclamation mark">!</span>{" "}
-              <span aria-label="at symbol">@</span>{" "}
-              <span aria-label="hashtag">#</span>{" "}
-              <span aria-label="dollar sign">$</span>{" "}
-              <span aria-label="percent">%</span>
+              חייב לכלול מספרים ולפחות אות אחת.
             </p>
 
             <label htmlFor="confirm_pwd">
@@ -235,7 +221,7 @@ const SignUp = () => {
               }
             >
               <FontAwesomeIcon icon={faInfoCircle} />
-              Must match the first password input field.
+              חייב להתאים לשדה הקודם.
             </p>
 
             <button
@@ -248,7 +234,6 @@ const SignUp = () => {
             כבר רשום?
             <br />
             <span className="line">
-              {/*put router link here*/}
               <a href="http://localhost:3000/login">התחבר</a>
             </span>
           </p>
@@ -257,4 +242,5 @@ const SignUp = () => {
     </>
   );
 };
+
 export default SignUp;

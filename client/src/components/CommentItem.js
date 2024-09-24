@@ -10,6 +10,9 @@ const CommentItem = ({ comment }) => {
       <div className="comment-author" style={{ color: 'blue' }}>
         {comment.first_name} {comment.last_name}
       </div>
+      <div className="comment-date">
+        {comment.created_at}
+      </div>
     </li>
   );
 };

@@ -3,17 +3,17 @@ import PropTypes from "prop-types";
 import PodcastDiscussion from "./PodcastDiscussion"; // Import the PodcastDiscussion component
 
 const Podcast = ({ podcastId, videoSrc, podcastTitle }) => {
-  const [podcastDiscussion, setPodcastDiscussion] = useState(null);
+  const [podcastDiscussion, setPodcastDiscussion] = useState();
 
   const fetchPodcastsDiscussion = async (podcastId) => {
     // Check if podcastId is valid before making the API call
     if (!podcastId) return;
 
     try {
-      const response = await fetch("http://localhost:5000/PodcastDiscussion?PodcastId=${podcastId}", {
+      const response = await fetch(`http://localhost:5000/PodcastDiscussion?PodcastId=${podcastId}`, {
         method: "GET",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
       });
 

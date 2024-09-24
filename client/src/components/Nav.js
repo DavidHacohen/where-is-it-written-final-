@@ -41,7 +41,7 @@ const Nav = () => {
             </ul>
           </li>
           <li className="li">
-            <Link to="/podcasts">פודקאסטים</Link>
+            <Link to="/podcasts">הסכתים</Link>
           </li>
           <li className="li">
             <Link to="/videos">סרטונים</Link>

@@ -139,8 +139,14 @@
 }
 
 .discussion-author {
-  font-size: 12px;
+  font-size: 14px;
   color: blue;
+  text-align: right;
+}
+
+.discussion-date {
+  font-size: 11px;
+  color: grey;
   text-align: right;
 }
 
@@ -161,8 +167,14 @@
 }
 
 .comment-author {
-  font-size: 12px;
+  font-size: 13px;
   color: blue;
+  text-align: right;
+}
+
+.comment-date {
+  font-size: 10px;
+  color: grey;
   text-align: right;
 }
 

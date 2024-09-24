@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Nav from "./Nav";
 import Podcast from "./Podcast";
+import "../assets/stylesheets/PodcastDiscussion.css"; 
 
 const Podcasts = () => {
   const [podcasts, setPodcasts] = useState([]);
@@ -26,7 +27,7 @@ const Podcasts = () => {
   return (
     <>
       <Nav />
-      <div>
+      <div className="map">
         {podcasts.map((podcast) => (
           <Podcast
             key={podcast.PodcastId}
