@@ -54,7 +54,7 @@ const Podcast = ({ podcastId, videoSrc, podcastTitle }) => {
       ></iframe>
       {/* PodcastDiscussion component for the specific podcast */}
       {podcastDiscussion ? (
-        <PodcastDiscussion podcast_discussion={podcastDiscussion} />
+        <PodcastDiscussion podcastId={podcastId} podcast_discussion={podcastDiscussion} />
       ) : (
         <p>Loading discussions...</p> // Display a loading message or fallback UI
       )}

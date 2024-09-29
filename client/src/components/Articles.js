@@ -1,51 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../assets/stylesheets/Articles.css";
 import Nav from "./Nav";
-
+import axios from "axios";
 
 const Articles = () => {
-  // Sample articles data, you can replace this with fetched data
-  const articles = [
-    {
-      title: "Article Title 1",
-      description: "Brief description of article 1...",
-      link: "/article-link-1",
-    },
-    {
-      title: "Article Title 2",
-      description: "Brief description of article 2...",
-      link: "/article-link-2",
-    },
-    {
-      title: "Article Title 3",
-      description: "Brief description of article 3...",
-      link: "/article-link-3",
-    },
-    // Add more articles here
-  ];
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchArticles = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/Articles");
+      console.log("חחח", response.data);
+
+      setArticles(response.data);
+      setLoading(false);
+      console.log("חחח", response.data);
+      console.log(articles.article_name);
+    } catch (err) {
+      console.error("Error fetching articles:", err);
+      setError("Failed to fetch articles");
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchArticles();
+  }, []);
+
+  const ExpandArticle = (content) => {
+    alert(content);
+  };
+
+  if (loading) return <div>טוען...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <>
       <Nav className="nav" />
-      <section className="articles-page">
-        {/* Main Article */}
-        <div className="main-article">
-          <h2>Latest Article</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
-          <a href="/article-link">Read more</a>
-        </div>
+      <div className="articles-container">
+        {/* Display the most recent article */}
+        {articles.length > 0 && (
+          <div className="main-article">
+            <h2>{articles[0].article_name}</h2>
+            <h3>{articles[0].article_subject}</h3>
+            <p>{articles[0].article_content}</p>
+          </div>
+        )}
 
-        {/* Other Articles */}
+        {/* Display the rest of the articles */}
         <div className="other-articles">
-          {articles.map((article, index) => (
-            <article key={index} className="article-box">
-              <h3>{article.title}</h3>
-              <p>{article.description}</p>
-              <a href={article.link}>Read more</a>
-            </article>
+          {articles.slice(1).map((article) => (
+            <div key={article.article_id} className="article-card">
+              <h3>{article.article_name}</h3>
+              <h4>{article.article_subject}</h4>
+              <button onClick={() => ExpandArticle(article.article_content)}>
+                הרחב
+              </button>{" "}
+            </div>
           ))}
         </div>
-      </section>
+      </div>
     </>
   );
 };

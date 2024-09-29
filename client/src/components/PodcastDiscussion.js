@@ -6,10 +6,11 @@ const PodcastDiscussion = ({ podcastId, podcast_discussion }) => {
   const [discussions, setDiscussions] = useState(podcast_discussion || []);
   const [newDiscussion, setNewDiscussion] = useState("");
   const userName = localStorage.getItem('userName')
+  console.log(podcastId)
 
   // Function to handle adding a new discussion
   const handleAddDiscussion = async () => {
-    if (!newDiscussion || !userName) {
+    if (!newDiscussion || !userName || !podcastId) {
       alert("Please fill in all fields before submitting.");
       return;
     }
@@ -19,6 +20,7 @@ const PodcastDiscussion = ({ podcastId, podcast_discussion }) => {
       DiscussionText: newDiscussion,
       Username: userName
     };
+    console.log(discussionData)
 
     try {
       const response = await fetch("http://localhost:5000/addPodcastDiscussion", {
@@ -59,15 +61,15 @@ const PodcastDiscussion = ({ podcastId, podcast_discussion }) => {
           rows={4}
           value={newDiscussion}
           onChange={(e) => setNewDiscussion(e.target.value)}
-          placeholder="התחל דיון חדש..." // Hebrew for "Start a new discussion..."
+          placeholder="כתוב תגובה..." 
         />
-        <button className="addButton" onClick={handleAddDiscussion}>הוסף דיון</button>
+        <button className="addButton" onClick={handleAddDiscussion}>הוסף תגובה</button>
       </div>
       <ul className="discussion-list">
         {podcast_discussion.map((podcast) => (
           podcast.discussions.map((discussion, discussionIndex) => (
-            <li key={discussion.discussion_id} className="discussion-item">
-              <div className="discussion-text">
+            <li key={discussion.discussion_id} className="discussion-item_podcasts">
+              <div className="discussion-text_podcasts">
                 <h3>{discussion.discussion_text}</h3>
                 <div className="discussion-author">
                   <span>

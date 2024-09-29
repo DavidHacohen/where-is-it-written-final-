@@ -17,7 +17,7 @@
 }
 
 .discussion-input .inputField {
-  width: 100%;
+  width: 140%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -38,16 +38,17 @@
   padding: 10px 0;
 }
 
-.discussion-item {
+.discussion-item_podcasts {
   background-color: #f9f9f9;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-bottom: 20px;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  margin-bottom: 5px;
   padding: 10px;
+  width: 50%;
 }
 
-.discussion-text {
-  font-size: 18px;
+.discussion-text_podcasts {
+  font-size: 15px;
   margin-bottom: 10px;
   text-align: right;
   overflow: auto;
